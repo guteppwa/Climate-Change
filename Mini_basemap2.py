@@ -14,7 +14,7 @@ Root=Tk()
 year = ''
 month = ''
 day = ''
-path_img1 = '/Users/Toon/Desktop/Building/test.png'
+path_img1 = '/Users/Napat/Desktop/Work/Building/test.png'
 
 class Building2:
 
@@ -35,11 +35,11 @@ class Building2:
         e = Entry(Root,textvariable=var_path)
         b = Button(Root,text="Browse", command = callback)
         w.pack()
-        w.place(relx=0.78, rely=0.1, anchor="c")
+        w.place(relx=0.83, rely=0.1, anchor="c")
         e.pack()
-        e.place(relx=0.85, rely=0.1, anchor="c")
+        e.place(relx=0.9, rely=0.1, anchor="c")
         b.pack()
-        b.place(relx=0.92, rely=0.1, anchor="c")
+        b.place(relx=0.97, rely=0.1, anchor="c")
         
         #latitude,longitude Selection
         var_lat2 = DoubleVar(Root)
@@ -151,19 +151,19 @@ class Building2:
         nc_vars = nc_vars[days_elapsed]
     
         #base map plot
-        fig = plt.figure(figsize=(8,7)) #weight and height position of pic in inchs
+        fig = plt.figure(figsize=(11,7)) #weight and height position of pic in inchs
         ax = fig.add_axes([0.1,0.1,0.8,0.8]) # add axes for pic
         #resolution = low , lon for center = -91 , lat for center = 40 , stereographic type ,smaller area for 1000 km^2 won't be plotted
-        m = Basemap(projection='merc', llcrnrlat=lats_s, urcrnrlat=lats_e,llcrnrlon=lons_s, urcrnrlon=lons_e, resolution='i', lon_0=0)        
+        m = Basemap(projection='cyl', llcrnrlat=lats_s, urcrnrlat=lats_e,llcrnrlon=lons_s, urcrnrlon=lons_e, resolution='c', lon_0=0,lat_0=0,area_thresh=10000)        
         #m.drawlsmask(land_color='#00441b',ocean_color='#8be5e5',lakes=True) #draw land and sea with lakes
         m.drawcoastlines() # draw coastlines
-        #m.drawstates() #draw state boundaries
+        m.drawstates() #draw state boundaries
         #m.drawrivers() #draw river
         m.drawcountries() #draw country boundaries
         #m.bluemarble()
-        parallels = np.arange(-90, 90, 10)#set label from 0 to 90 with increase by 10
+        parallels = np.arange(-90, 91, 30)#set label from 0 to 90 with increase by 10
         m.drawparallels(parallels,labels=[1,0,0,0],fontsize=10) #draw label [left,right,top,bottom] 
-        meridians = np.arange(-180,180,10)#set label from 180 to 360 with increase by 10
+        meridians = np.arange(-180,180,60)#set label from 180 to 360 with increase by 10
         m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=10) #draw label [left,right,top,bottom] 
         lons,lats= np.meshgrid(nc_lons-180,nc_lats) # for this dataset, longitude is 0 through 360, so you need to subtract 180 to properly display on map
         x,y = m(lons,lats)
@@ -188,7 +188,7 @@ class Building2:
             label = Label(Root,image=photo)
             label.image = photo # keep a reference!
             label.pack()
-            label.place(relx=0.4, rely=0.5, anchor="c")
+            label.place(relx=0.36, rely=0.5, anchor="c")
             def Close():
                 label.destroy()
             c_image1 = Button(Root, text="Close Pic", command = Close)
